@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GestCom — Gestion Commerciale</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<p class="center">Chargement…</p>
+<script src="js/auth.js"></script>
+<script>
+  // Point d'entrée : premier lancement -> création admin, sinon connexion / tableau de bord.
+  var s = Auth.session();
+  location.replace(!Auth.adminExists() ? "setup.html" : s ? Auth.homeFor(s.role) : "login.html");
+</script>
+</body>
+</html>

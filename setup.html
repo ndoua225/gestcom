@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configuration initiale — GestCom</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="split">
+  <section class="hero" aria-label="Présentation">
+    <div class="logo">
+      <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6"/></svg></div>
+      <div><b>GestCom</b><span>Gestion Commerciale</span></div>
+    </div>
+    <div class="badge">Tout votre commerce, dans une seule application</div>
+    <h1>Gérez votre entreprise<br>simplement et <em>efficacement</em></h1>
+    <p>Une solution complète pour la gestion des ventes, des stocks, des clients et des rapports, pensée pour les entreprises modernes.</p>
+    <div class="features">
+      <div class="feature"><i style="background:#16a34a">🛒</i><div>Ventes<small>Factures et paiements</small></div></div>
+      <div class="feature"><i style="background:#7c3aed">👥</i><div>Clients<small>Gestion complète</small></div></div>
+      <div class="feature"><i style="background:#f59e0b">📦</i><div>Stock<small>Suivi en temps réel</small></div></div>
+      <div class="feature"><i style="background:#1566f0">📊</i><div>Rapports<small>Statistiques détaillées</small></div></div>
+    </div>
+    <div class="hero-foot"><span>🛡️ Données sécurisées</span><span>💻 Accessible partout</span><span>⚡ Simple et rapide</span></div>
+  </section>
+
+  <section class="pane">
+    <div class="card wide">
+      <h2>Créez votre compte administrateur</h2>
+      <p class="sub">Première utilisation : configurez votre entreprise et son administrateur. Cette étape n'apparaît qu'une seule fois.</p>
+      <form id="setup-form" novalidate>
+        <fieldset>
+          <legend>🏢 Entreprise</legend>
+          <div class="field"><label for="company_name">Nom de l'entreprise *</label>
+            <input id="company_name" name="company_name" required autocomplete="organization"></div>
+          <div class="field"><label for="logo">Logo</label>
+            <input id="logo" name="logo" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp"></div>
+          <div class="field"><label for="address">Adresse</label>
+            <input id="address" name="address" autocomplete="street-address"></div>
+          <div class="grid2">
+            <div class="field"><label for="company_phone">Téléphone</label>
+              <input id="company_phone" name="company_phone" type="tel"></div>
+            <div class="field"><label for="company_email">Email de l'entreprise</label>
+              <input id="company_email" name="company_email" type="email"></div>
+          </div>
+          <div class="field"><label for="website">Site web (optionnel)</label>
+            <input id="website" name="website" type="url" placeholder="https://"></div>
+        </fieldset>
+        <fieldset>
+          <legend>👤 Administrateur</legend>
+          <div class="grid2">
+            <div class="field"><label for="nom">Nom *</label>
+              <input id="nom" name="nom" required autocomplete="family-name"></div>
+            <div class="field"><label for="prenom">Prénom *</label>
+              <input id="prenom" name="prenom" required autocomplete="given-name"></div>
+            <div class="field"><label for="email">Email *</label>
+              <input id="email" name="email" type="email" required autocomplete="email"></div>
+            <div class="field"><label for="telephone">Téléphone</label>
+              <input id="telephone" name="telephone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field"><label for="username">Nom d'utilisateur *</label>
+            <input id="username" name="username" required autocomplete="username"></div>
+          <div class="grid2">
+            <div class="field"><label for="password">Mot de passe *</label>
+              <div class="input"><input id="password" name="password" type="password" required autocomplete="new-password">
+              <button type="button" class="toggle" data-toggle="password" aria-label="Afficher le mot de passe">👁</button></div></div>
+            <div class="field"><label for="confirm">Confirmation *</label>
+              <div class="input"><input id="confirm" name="confirm" type="password" required autocomplete="new-password">
+              <button type="button" class="toggle" data-toggle="confirm" aria-label="Afficher le mot de passe">👁</button></div></div>
+          </div>
+        </fieldset>
+        <button class="btn" type="submit">Créer le compte administrateur</button>
+      </form>
+      <p class="foot">GestCom v1.0 • Tous droits réservés</p>
+    </div>
+  </section>
+</main>
+<script src="js/auth.js"></script>
+<script src="js/setup.js"></script>
+</body>
+</html>

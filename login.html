@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion — GestCom</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="login-page">
+<main class="split">
+  <section class="hero" aria-label="Présentation">
+    <div class="logo">
+      <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6"/></svg></div>
+      <div><b>GestCom</b><span>Gestion Commerciale</span></div>
+    </div>
+    <div class="badge">Tout votre commerce, dans une seule application</div>
+    <h1>Gérez votre entreprise<br>simplement et <em>efficacement</em></h1>
+    <p>Une solution complète pour la gestion des ventes, des stocks, des clients et des rapports, pensée pour les entreprises modernes.</p>
+    <div class="features">
+      <div class="feature"><i style="background:#16a34a">🛒</i><div>Ventes<small>Factures et paiements</small></div></div>
+      <div class="feature"><i style="background:#7c3aed">👥</i><div>Clients<small>Gestion complète</small></div></div>
+      <div class="feature"><i style="background:#f59e0b">📦</i><div>Stock<small>Suivi en temps réel</small></div></div>
+      <div class="feature"><i style="background:#1566f0">📊</i><div>Rapports<small>Statistiques détaillées</small></div></div>
+    </div>
+    <div class="hero-foot"><span>🛡️ Données sécurisées</span><span>💻 Accessible partout</span><span>⚡ Simple et rapide</span></div>
+  </section>
+
+  <section class="pane">
+    <div class="card">
+      <div class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H6"/></svg></div>
+        <div><b>GestCom</b><span>Gestion Commerciale</span></div>
+      </div>
+      <h2>Connexion à votre compte</h2>
+      <p class="sub">Accédez à votre espace de travail en toute sécurité</p>
+      <div id="flash" class="alert success" role="status" hidden></div>
+      <div id="error" class="alert error" role="alert" hidden></div>
+      <form id="login-form" novalidate>
+        <div class="field"><label for="username">Nom d'utilisateur</label>
+          <input id="username" name="username" placeholder="Entrez votre nom d'utilisateur" autocomplete="username" required autofocus></div>
+        <div class="field"><label for="password">Mot de passe</label>
+          <div class="input"><input id="password" name="password" type="password" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
+          <button type="button" class="toggle" data-toggle="password" aria-label="Afficher le mot de passe">👁</button></div></div>
+        <div class="field"><label for="role">Rôle</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Sélectionnez votre rôle</option>
+            <option value="admin">Administrateur</option>
+            <option value="manager">Manager</option>
+            <option value="vendeur">Vendeur</option>
+          </select></div>
+        <div class="row">
+          <label><input type="checkbox" name="remember"> Se souvenir de moi</label>
+          <a href="mot-de-passe-oublie.html">Mot de passe oublié ?</a>
+        </div>
+        <button class="btn" type="submit">→ Se connecter</button>
+      </form>
+      <div class="trust">
+        <div><b>🛡️ Connexion sécurisée</b>Vos données sont protégées</div>
+        <div><b>🔒 Accès par rôle</b>Interface adaptée à votre profil</div>
+        <div><b>🗄️ Base de données fiable</b>Vos informations sont en sécurité</div>
+      </div>
+      <p class="foot">GestCom v1.0 • Tous droits réservés</p>
+    </div>
+  </section>
+</main>
+<script src="js/auth.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

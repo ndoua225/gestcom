@@ -1,0 +1,1112 @@
+PRD — GestCom
+Application web de gestion commerciale multi-rôles
+Version : 1.0
+Statut : Document de conception
+Type : Application web responsive
+Nom du produit : GestCom — Gestion Commerciale
+Cible : PME, commerces, magasins et entreprises disposant d'une ou plusieurs équipes commerciales.
+1. Vision du produit
+GestCom est une application web de gestion commerciale permettant à une entreprise de centraliser dans une seule plateforme :
+- les ventes ;
+- les produits ;
+- les stocks ;
+- les clients ;
+- les fournisseurs ;
+- les utilisateurs ;
+- les magasins ;
+- les objectifs commerciaux ;
+- les rapports et statistiques ;
+- le suivi des performances des vendeurs ;
+- la gestion des permissions.
+L'application repose sur un système multi-rôles avec trois espaces principaux :
+1. Administrateur
+2. Manager
+3. Vendeur
+Chaque rôle possède une interface adaptée à ses responsabilités et n'accède qu'aux fonctionnalités qui lui sont autorisées.
+Les écrans fournis servent de référence visuelle et fonctionnelle pour la direction artistique de l'application.
+2. Références visuelles fournies
+Le produit devra reprendre l'esprit général des quatre maquettes fournies :
+Écran 1 — Connexion
+Référence :
+- interface moderne ;
+- panneau marketing à gauche ;
+- formulaire de connexion à droite ;
+- identité visuelle GestCom ;
+- dominante bleu/blanc ;
+- cartes et éléments avec coins arrondis ;
+- icônes modernes ;
+- interface professionnelle.
+Écran 2 — Dashboard Administrateur
+Il présente notamment :
+- chiffre d'affaires ;
+- ventes totales ;
+- clients actifs ;
+- produits en stock ;
+- ruptures de stock ;
+- évolution des ventes ;
+- répartition par catégories ;
+- top produits ;
+- utilisateurs ;
+- dernières ventes ;
+- alertes stock ;
+- répartition des magasins ;
+- performances des vendeurs ;
+- actions rapides.
+Écran 3 — Dashboard Manager
+Il reprend une structure proche de l'administrateur mais avec une vision opérationnelle de son équipe :
+- chiffre d'affaires ;
+- ventes ;
+- clients ;
+- produits ;
+- vendeurs actifs ;
+- évolution du chiffre d'affaires ;
+- catégories ;
+- produits les plus vendus ;
+- performances des vendeurs ;
+- dernières ventes ;
+- alertes stock ;
+- objectifs ;
+- actions rapides.
+Écran 4 — Dashboard Vendeur
+Il est davantage orienté Point de Vente / caisse :
+- nouvelle vente ;
+- catalogue produits ;
+- clients récents ;
+- ventes du jour ;
+- chiffre du jour ;
+- objectif individuel ;
+- dernières ventes ;
+- statistiques personnelles ;
+- actions rapides.
+Les maquettes ne doivent pas être considérées comme de simples images à reproduire : elles constituent la référence UX/UI du produit.
+3. Objectifs du produit
+3.1 Objectif principal
+Créer une solution commerciale permettant à une entreprise de gérer son activité quotidienne depuis une seule application.
+3.2 Objectifs secondaires
+GestCom doit permettre de :
+- réduire la gestion manuelle ;
+- centraliser les données commerciales ;
+- suivre les ventes en temps réel ;
+- contrôler les stocks ;
+- connaître les performances des vendeurs ;
+- suivre les objectifs ;
+- gérer plusieurs magasins ;
+- contrôler les accès ;
+- générer des rapports ;
+- faciliter la prise de décision.
+4. Utilisateurs et rôles
+Le système comporte trois rôles principaux.
+Rôle	Fonction principale
+Administrateur	Gestion globale de l'entreprise
+Manager	Gestion d'un magasin / d'une équipe
+Vendeur	Vente et gestion de son activité commerciale
+
+
+5. Architecture des permissions
+5.1 Administrateur
+L'administrateur possède la vision globale.
+Il peut notamment :
+- gérer les utilisateurs ;
+- créer/inviter des managers ;
+- créer/inviter des vendeurs ;
+- gérer les magasins ;
+- gérer les produits ;
+- gérer les catégories ;
+- gérer les stocks ;
+- consulter toutes les ventes ;
+- consulter tous les clients ;
+- consulter les fournisseurs ;
+- consulter les rapports ;
+- définir les objectifs ;
+- gérer les rôles et permissions ;
+- consulter les performances ;
+- configurer l'entreprise.
+6. Création du premier compte administrateur
+C'est une étape fondamentale du produit.
+Lorsqu'une entreprise lance GestCom pour la première fois et qu'aucun administrateur n'existe, l'application doit afficher une option :
+Créer le compte administrateur
+
+Informations demandées
+Entreprise
+- Nom de l'entreprise
+- Logo
+- Adresse
+- Téléphone
+- Email
+- éventuellement site web
+Administrateur
+- Nom
+- Prénom
+- Email
+- Téléphone
+- Nom d'utilisateur
+- Mot de passe
+- Confirmation du mot de passe
+Après validation
+Le système :
+1. crée l'entreprise ;
+2. crée le compte administrateur ;
+3. associe l'administrateur à l'entreprise ;
+4. initialise les paramètres par défaut ;
+5. redirige l'administrateur vers son tableau de bord.
+7. Système d'invitation des utilisateurs
+L'administrateur ne doit pas créer directement les mots de passe des autres utilisateurs.
+Il crée une invitation contenant :
+- nom ;
+- prénom ;
+- email ;
+- rôle ;
+- magasin affecté ;
+- éventuellement téléphone.
+Exemple :
+Nom : Koffi Jean
+Email : koffi@entreprise.com
+Rôle : Vendeur
+Magasin : Magasin 1
+
+GestCom envoie ensuite une invitation à l'utilisateur.
+8. Première connexion d'un utilisateur invité
+Lorsqu'un vendeur ou manager reçoit son invitation :
+Étape 1
+Il clique sur :
+Accepter mon invitation
+
+Étape 2
+Il vérifie ses informations.
+Étape 3
+Il crée lui-même son mot de passe.
+Étape 4
+Son compte devient actif.
+Étape 5
+Il est redirigé automatiquement vers son espace.
+Règle de sécurité importante
+L'administrateur ne voit jamais le mot de passe définitif du vendeur ou du manager.
+L'administrateur peut uniquement :
+- renvoyer une invitation ;
+- désactiver un compte ;
+- réactiver un compte ;
+- déclencher une réinitialisation du mot de passe.
+9. Authentification
+L'écran de connexion doit reprendre le principe de la maquette fournie.
+Champs
+- Nom d'utilisateur / email
+- Mot de passe
+- Rôle
+- Se souvenir de moi
+Actions
+- Se connecter
+- Afficher/masquer le mot de passe
+- Mot de passe oublié
+- éventuellement changer de compte
+Sécurité
+Le système doit prévoir :
+- mots de passe hashés ;
+- sessions sécurisées ;
+- expiration de session ;
+- protection contre les tentatives répétées ;
+- contrôle des permissions côté serveur ;
+- validation des données ;
+- protection CSRF si architecture concernée ;
+- journalisation des actions sensibles.
+10. Routage après connexion
+Après authentification, GestCom identifie le rôle de l'utilisateur.
+Administrateur
+/admin/dashboard
+Manager
+/manager/dashboard
+Vendeur
+/vendeur/dashboard
+L'utilisateur ne doit jamais pouvoir accéder simplement en modifiant l'URL à un espace qui ne lui appartient pas.
+Exemple :
+Un vendeur qui tente d'accéder à :
+/admin/utilisateurs
+doit recevoir une réponse :
+Accès non autorisé
+
+11. Dashboard Administrateur
+Le dashboard administrateur constitue la vue globale de l'entreprise.
+11.1 Barre latérale
+Menu recommandé :
+- Tableau de bord
+- Ventes
+- Point de vente
+- Produits
+- Stock
+- Clients
+- Fournisseurs
+- Utilisateurs
+- Rôles & permissions
+- Rapports
+- Catégories
+- Paramètres
+- Aide & Support
+- Déconnexion
+12. Dashboard Manager
+Le manager possède une vision plus limitée que l'administrateur.
+Navigation
+- Tableau de bord
+- Ventes
+- Point de vente
+- Produits
+- Stock
+- Clients
+- Fournisseurs
+- Vendeurs
+- Rapports
+- Objectifs
+- Messages
+- Paramètres
+- Aide & Support
+- Déconnexion
+Les informations affichées doivent être limitées à son périmètre :
+magasin / équipe / période autorisée.
+
+13. Dashboard Vendeur
+Le vendeur possède l'interface la plus orientée vente.
+Navigation
+- Point de vente
+- Mes ventes
+- Produits
+- Clients
+- Stock
+- Historique
+- Rapports
+- Mon profil
+- Paramètres
+- Aide & Support
+- Déconnexion
+La page d'accueil doit favoriser l'action principale :
+Réaliser une vente
+
+14. Module Point de Vente
+Le module POS constitue une fonctionnalité centrale.
+Fonctionnalités
+Le vendeur peut :
+- rechercher un produit ;
+- scanner un code-barres ;
+- ajouter un produit au panier ;
+- modifier la quantité ;
+- supprimer un produit ;
+- appliquer une remise autorisée ;
+- sélectionner un client ;
+- calculer automatiquement le total ;
+- enregistrer la vente ;
+- encaisser ;
+- imprimer/générer une facture.
+Informations d'une vente
+- numéro de vente ;
+- date ;
+- vendeur ;
+- magasin ;
+- client ;
+- produits ;
+- quantités ;
+- prix unitaires ;
+- remise ;
+- taxes ;
+- total ;
+- moyen de paiement ;
+- statut.
+15. Moyens de paiement
+Le système doit pouvoir supporter :
+- espèces ;
+- carte bancaire ;
+- Mobile Money ;
+- virement ;
+- autres moyens configurables.
+Pour le contexte ivoirien, une évolution pourra intégrer les principaux moyens de paiement locaux.
+16. Module Produits
+L'administrateur et les utilisateurs autorisés peuvent gérer les produits.
+Informations produit
+- nom ;
+- référence ;
+- code-barres ;
+- catégorie ;
+- description ;
+- prix d'achat ;
+- prix de vente ;
+- stock ;
+- seuil d'alerte ;
+- unité ;
+- image ;
+- fournisseur ;
+- magasin ;
+- statut.
+Actions
+- créer ;
+- modifier ;
+- consulter ;
+- désactiver ;
+- supprimer selon permissions ;
+- rechercher ;
+- filtrer ;
+- trier.
+17. Module Stock
+Le système doit permettre de suivre :
+- stock actuel ;
+- entrées ;
+- sorties ;
+- transferts ;
+- ajustements ;
+- ruptures ;
+- seuils d'alerte.
+Alertes
+Exemples :
+🔴 Rupture de stock
+
+🟠 Stock faible
+
+🟢 Stock disponible
+
+18. Gestion des magasins
+L'administrateur doit pouvoir créer plusieurs magasins.
+Exemple :
+- Magasin 1
+- Magasin 2
+- Magasin 3
+- Magasin 4
+Chaque magasin peut posséder :
+- un manager ;
+- plusieurs vendeurs ;
+- son stock ;
+- ses ventes ;
+- ses clients ;
+- ses objectifs.
+L'administrateur conserve une vision consolidée.
+19. Gestion des utilisateurs
+L'administrateur doit disposer d'une interface permettant de :
+- voir les utilisateurs ;
+- rechercher un utilisateur ;
+- filtrer par rôle ;
+- filtrer par magasin ;
+- inviter un utilisateur ;
+- modifier ses informations ;
+- désactiver son compte ;
+- réactiver son compte ;
+- réinitialiser son accès ;
+- consulter son activité.
+Statuts
+- Actif
+- Invité
+- En attente
+- Inactif
+- Suspendu
+20. Gestion des clients
+Informations :
+- nom ;
+- prénom ;
+- téléphone ;
+- email ;
+- adresse ;
+- historique d'achat ;
+- montant total acheté ;
+- dernière visite.
+Fonctionnalités :
+- créer ;
+- modifier ;
+- rechercher ;
+- consulter ;
+- historique des achats.
+21. Gestion des fournisseurs
+Le module fournisseur permet de gérer :
+- nom ;
+- entreprise ;
+- téléphone ;
+- email ;
+- adresse ;
+- produits fournis ;
+- historique des commandes ;
+- montant des achats.
+22. Module Ventes
+L'application doit fournir une vue complète des ventes.
+Filtres
+- période ;
+- magasin ;
+- vendeur ;
+- client ;
+- produit ;
+- statut ;
+- moyen de paiement.
+Statuts
+- Payée
+- En attente
+- Annulée
+- Remboursée
+23. Module Objectifs
+Les managers et administrateurs peuvent définir des objectifs.
+Exemples
+Objectif individuel :
+1 000 000 FCFA / mois
+
+Objectif équipe :
+5 000 000 FCFA / mois
+
+Indicateurs :
+- chiffre d'affaires ;
+- nombre de ventes ;
+- nouveaux clients ;
+- produits vendus.
+Le système calcule automatiquement :
+Progression = réalisé / objectif × 100
+
+24. Rapports et statistiques
+GestCom doit proposer des rapports sur :
+Ventes
+- chiffre d'affaires ;
+- nombre de ventes ;
+- panier moyen ;
+- évolution temporelle.
+Produits
+- produits les plus vendus ;
+- produits les moins vendus ;
+- chiffre d'affaires par produit.
+Stocks
+- produits en rupture ;
+- produits à faible stock ;
+- mouvements de stock.
+Vendeurs
+- chiffre d'affaires ;
+- nombre de ventes ;
+- panier moyen ;
+- taux d'atteinte des objectifs.
+Clients
+- clients actifs ;
+- nouveaux clients ;
+- clients les plus importants.
+25. Dashboard : indicateurs clés
+Les dashboards doivent utiliser des KPI Cards.
+Exemple :
+Administrateur
+Chiffre d'affaires
+12 450 000 FCFA
+Ventes
+256
+Clients actifs
+148
+Produits en stock
+256
+Ruptures
+12
+Manager
+Chiffre d'affaires
+2 450 000 FCFA
+Ventes
+48
+Clients actifs
+32
+Produits
+256
+Vendeurs actifs
+5 / 6
+Vendeur
+Ventes du jour
+8
+Chiffre du jour
+670 000 FCFA
+Clients du jour
+5
+Objectif
+1 000 000 FCFA — 67 %
+26. Recherche globale
+La barre supérieure doit permettre de rechercher rapidement :
+- produit ;
+- client ;
+- vente ;
+- vendeur ;
+- utilisateur ;
+- référence ;
+- code-barres.
+Les résultats doivent être regroupés par catégorie.
+Exemple :
+Produits
+iPhone 15
+Clients
+Sophie Martin
+Ventes
+V2025-00125
+27. Notifications
+Le système doit disposer d'un centre de notifications.
+Exemples :
+- nouvelle invitation ;
+- stock faible ;
+- rupture ;
+- objectif atteint ;
+- nouvelle vente ;
+- remboursement ;
+- compte désactivé ;
+- rapport disponible.
+Les notifications doivent être adaptées au rôle.
+28. Profil utilisateur
+Chaque utilisateur possède un profil.
+Informations
+- photo ;
+- nom ;
+- prénom ;
+- email ;
+- téléphone ;
+- rôle ;
+- magasin ;
+- statut.
+Actions
+- modifier profil ;
+- changer mot de passe ;
+- modifier photo ;
+- préférences ;
+- déconnexion.
+29. Design System
+Le design doit reprendre l'identité visuelle des maquettes.
+Couleurs principales
+Bleu
+Couleur principale de GestCom.
+Utilisation :
+- boutons principaux ;
+- liens ;
+- graphiques ;
+- éléments actifs.
+Rose / rouge
+Utilisation :
+- identité du vendeur/POS ;
+- actions importantes ;
+- alertes ;
+- éléments de mise en avant.
+Vert
+Utilisation :
+- succès ;
+- paiement ;
+- stock disponible ;
+- progression positive.
+Orange
+Utilisation :
+- avertissements ;
+- stock faible ;
+- catégories.
+Violet
+Utilisation :
+- statistiques ;
+- objectifs ;
+- fonctionnalités secondaires.
+30. Principes UI
+L'interface doit respecter :
+- hiérarchie visuelle claire ;
+- espaces blancs suffisants ;
+- contraste accessible ;
+- typographie lisible ;
+- composants cohérents ;
+- boutons clairement identifiables ;
+- états hover/focus/active ;
+- feedback utilisateur ;
+- messages d'erreur compréhensibles ;
+- formulaires simples ;
+- navigation prévisible.
+31. Responsive Design
+L'application doit fonctionner correctement sur :
+Desktop
+1920 px
+1536 px
+1440 px
+1366 px
+Laptop
+1280 px
+1024 px
+Tablette
+768 px
+834 px
+1024 px
+Mobile
+320 px
+375 px
+390 px
+414 px
+430 px
+32. Adaptation mobile
+La sidebar desktop doit devenir une navigation adaptée au mobile.
+Possibilités :
+- menu hamburger ;
+- sidebar coulissante ;
+- bottom navigation pour les fonctions essentielles.
+Les tableaux doivent devenir :
+- cartes ;
+- listes scrollables ;
+- affichage responsive.
+Les dashboards doivent passer :
+Desktop
+5 cartes sur une ligne
+↓
+Tablette
+2–3 cartes
+↓
+Mobile
+1 carte par ligne.
+33. Accessibilité
+L'application doit respecter les bonnes pratiques WCAG.
+Prévoir notamment :
+- contraste suffisant ;
+- navigation clavier ;
+- focus visible ;
+- labels pour les champs ;
+- textes alternatifs pour les images ;
+- boutons suffisamment grands ;
+- messages d'erreur accessibles ;
+- ne pas dépendre uniquement de la couleur.
+34. États de l'interface
+Chaque fonctionnalité doit prévoir plusieurs états.
+Loading
+Skeleton loaders ou indicateur de chargement.
+Empty state
+Exemple :
+Aucun produit trouvé.
+
+Avec éventuellement :
+Ajouter un produit
+
+Error state
+Une erreur est survenue. Veuillez réessayer.
+
+Success
+Produit ajouté avec succès.
+
+Confirmation
+Avant une action destructive :
+Êtes-vous sûr de vouloir supprimer ce produit ?
+
+35. Architecture fonctionnelle
+GESTCOM
+│
+├── Authentification
+│   ├── Connexion
+│   ├── Création administrateur
+│   ├── Invitation
+│   ├── Activation compte
+│   ├── Mot de passe oublié
+│   └── Réinitialisation
+│
+├── Administrateur
+│   ├── Dashboard
+│   ├── Ventes
+│   ├── POS
+│   ├── Produits
+│   ├── Stock
+│   ├── Clients
+│   ├── Fournisseurs
+│   ├── Magasins
+│   ├── Utilisateurs
+│   ├── Rôles
+│   ├── Rapports
+│   └── Paramètres
+│
+├── Manager
+│   ├── Dashboard
+│   ├── Ventes
+│   ├── POS
+│   ├── Produits
+│   ├── Stock
+│   ├── Clients
+│   ├── Vendeurs
+│   ├── Objectifs
+│   └── Rapports
+│
+└── Vendeur
+    ├── Point de vente
+    ├── Mes ventes
+    ├── Produits
+    ├── Clients
+    ├── Stock
+    ├── Historique
+    └── Rapports
+
+36. Architecture des données
+Les principales entités sont :
+Entreprise
+    │
+    ├── Magasins
+    │      │
+    │      ├── Managers
+    │      └── Vendeurs
+    │
+    ├── Produits
+    │      └── Catégories
+    │
+    ├── Stocks
+    │
+    ├── Clients
+    │
+    ├── Fournisseurs
+    │
+    ├── Ventes
+    │      ├── Produits
+    │      ├── Client
+    │      └── Vendeur
+    │
+    └── Objectifs
+
+37. Relations principales
+User
+User
+├── id
+├── nom
+├── prénom
+├── email
+├── téléphone
+├── rôle
+├── magasin_id
+├── statut
+└── created_at
+
+Product
+Product
+├── id
+├── nom
+├── référence
+├── code_barres
+├── catégorie_id
+├── prix_achat
+├── prix_vente
+├── stock
+├── seuil_alerte
+└── image
+
+Sale
+Sale
+├── id
+├── numéro
+├── client_id
+├── vendeur_id
+├── magasin_id
+├── sous_total
+├── remise
+├── taxe
+├── total
+├── paiement
+├── statut
+└── date
+
+38. Sécurité
+La sécurité doit être considérée comme une fonctionnalité fondamentale.
+Authentification
+- hash sécurisé des mots de passe ;
+- session sécurisée ;
+- expiration de session ;
+- récupération de compte.
+Autorisation
+RBAC :
+Role-Based Access Control
+
+Exemple :
+ADMIN
+   ↓
+Accès global
+
+MANAGER
+   ↓
+Accès magasin / équipe
+
+VENDEUR
+   ↓
+Accès vente / activité personnelle
+
+Audit
+Le système devrait enregistrer les actions sensibles :
+- connexion ;
+- déconnexion ;
+- création utilisateur ;
+- modification produit ;
+- suppression ;
+- modification stock ;
+- annulation vente ;
+- changement de permissions.
+39. Performance
+L'application doit :
+- charger rapidement ;
+- éviter les requêtes inutiles ;
+- paginer les grandes listes ;
+- optimiser les images ;
+- utiliser le lazy loading lorsque nécessaire ;
+- mettre en cache certaines données ;
+- éviter de charger toutes les données d'un dashboard en une seule fois.
+40. Compatibilité
+L'application devra être compatible avec les navigateurs modernes :
+- Google Chrome ;
+- Microsoft Edge ;
+- Mozilla Firefox ;
+- Safari.
+Les dernières versions stables doivent être privilégiées.
+41. Architecture technique recommandée
+Pour une véritable application de production, l'architecture pourra être organisée ainsi :
+Frontend
+    ↓
+API / Backend
+    ↓
+Base de données
+
+Avec éventuellement :
+Frontend
+   │
+   ↓
+API REST
+   │
+   ├── Auth
+   ├── Users
+   ├── Products
+   ├── Sales
+   ├── Stock
+   ├── Customers
+   ├── Reports
+   └── Notifications
+           │
+           ↓
+       Database
+
+42. Architecture recommandée pour le vibe coding
+Puisque le projet est destiné à être développé avec une approche vibe coding, il faut éviter de demander à l'IA de tout construire simultanément.
+Le développement devra être découpé en modules.
+Phase 1
+Fondations
+- projet ;
+- design system ;
+- routing ;
+- layout ;
+- responsive ;
+- composants UI.
+Phase 2
+Authentification
+- création admin ;
+- connexion ;
+- déconnexion ;
+- invitation ;
+- activation ;
+- récupération de mot de passe.
+Phase 3
+RBAC
+- admin ;
+- manager ;
+- vendeur ;
+- permissions.
+Phase 4
+Produits et catégories
+Phase 5
+Stock
+Phase 6
+Clients et fournisseurs
+Phase 7
+Point de vente
+Phase 8
+Ventes
+Phase 9
+Dashboards
+Phase 10
+Objectifs et rapports
+Phase 11
+Notifications
+Phase 12
+Tests et sécurisation
+43. MVP
+Pour éviter que le projet devienne trop complexe dès le départ, le MVP doit contenir :
+Authentification
+- création premier administrateur ;
+- connexion ;
+- déconnexion ;
+- invitation ;
+- activation utilisateur ;
+- mot de passe oublié.
+Utilisateurs
+- Admin ;
+- Manager ;
+- Vendeur.
+Produits
+- CRUD produit ;
+- catégories ;
+- stock.
+Clients
+- CRUD client.
+Vente
+- panier ;
+- calcul total ;
+- paiement ;
+- historique.
+Dashboards
+- Admin ;
+- Manager ;
+- Vendeur.
+Permissions
+- contrôle d'accès par rôle.
+44. Fonctionnalités V2
+Après validation du MVP :
+- gestion avancée des fournisseurs ;
+- multi-magasins avancé ;
+- transfert de stock ;
+- objectifs avancés ;
+- rapports PDF ;
+- export Excel/CSV ;
+- notifications avancées ;
+- audit complet ;
+- statistiques avancées ;
+- impression de factures ;
+- intégration code-barres ;
+- intégration moyens de paiement ;
+- mode hors ligne/PWA.
+45. Critères d'acceptation principaux
+Authentification
+AC-01
+Si aucune entreprise n'existe, l'utilisateur peut créer le premier compte administrateur.
+
+AC-02
+Un administrateur peut inviter un manager.
+
+AC-03
+Un administrateur peut inviter un vendeur.
+
+AC-04
+Un utilisateur invité peut créer son propre mot de passe.
+
+AC-05
+L'administrateur ne peut jamais consulter le mot de passe d'un utilisateur.
+
+Permissions
+AC-06
+Un vendeur ne peut pas accéder au dashboard administrateur.
+
+AC-07
+Un manager ne peut pas modifier les paramètres réservés à l'administrateur.
+
+AC-08
+L'administrateur peut consulter les données globales.
+
+Vente
+AC-09
+Une vente peut être créée depuis le POS.
+
+AC-10
+Le stock est automatiquement diminué après validation d'une vente.
+
+AC-11
+Le chiffre d'affaires est mis à jour après validation.
+
+Stock
+AC-12
+Une alerte apparaît lorsqu'un produit atteint son seuil minimum.
+
+AC-13
+Une rupture de stock est clairement identifiée.
+
+46. UX principale
+Le parcours idéal est :
+PREMIER LANCEMENT
+       ↓
+Créer entreprise
+       ↓
+Créer administrateur
+       ↓
+Dashboard Admin
+       ↓
+Créer magasin
+       ↓
+Inviter Manager
+       ↓
+Inviter Vendeurs
+       ↓
+Créer catégories
+       ↓
+Ajouter produits
+       ↓
+Initialiser stock
+       ↓
+Commencer les ventes
+
+Pour un utilisateur invité :
+Invitation
+    ↓
+Accepter invitation
+    ↓
+Créer mot de passe
+    ↓
+Compte activé
+    ↓
+Connexion
+    ↓
+Dashboard correspondant au rôle
+
+47. Principe UX fondamental
+L'application ne doit pas seulement être jolie.
+Elle doit être :
+Simple à comprendre + rapide à utiliser + cohérente + sécurisée + responsive.
+
+Le vendeur doit pouvoir effectuer une vente avec un minimum d'étapes.
+Le manager doit pouvoir comprendre la performance de son équipe rapidement.
+L'administrateur doit pouvoir comprendre l'état global de l'entreprise depuis son dashboard.
+48. Direction artistique finale
+L'identité visuelle doit conserver l'esprit des maquettes :
+GestCom
+Gestion Commerciale
+
+Style
+- moderne ;
+- professionnel ;
+- SaaS ;
+- épuré ;
+- premium mais accessible ;
+- orienté entreprise ;
+- légèrement coloré ;
+- cartes avec bordures et ombres discrètes ;
+- icônes cohérentes ;
+- graphiques lisibles.
+Éviter
+- surcharge visuelle ;
+- trop de couleurs simultanément ;
+- animations excessives ;
+- petits textes difficiles à lire ;
+- tableaux illisibles sur mobile ;
+- menus trop complexes ;
+- effets décoratifs qui ralentissent l'application.
+49. Principe de conception des trois dashboards
+Il ne faut pas créer trois applications différentes.
+Il faut créer :
+une seule application GestCom avec trois expériences adaptées au rôle.
+
+Architecture :
+                     GESTCOM
+                        │
+              ┌─────────┴─────────┐
+              │                   │
+        AUTHENTIFICATION      UTILISATEUR
+                                  │
+                 ┌────────────────┼────────────────┐
+                 │                │                │
+              ADMIN            MANAGER          VENDEUR
+                 │                │                │
+          Vue globale       Vue équipe        Vue vente
+                 │                │                │
+          Toutes données    Magasin/équipe     Activité personnelle
+
+C'est un point très important pour le développement : les composants UI doivent être réutilisables, tandis que les permissions et les données affichées changent selon le rôle.
+50. Résultat attendu
+À terme, GestCom doit donner l'impression d'être une véritable solution SaaS commerciale professionnelle.
+Un utilisateur doit pouvoir :
+Créer l'entreprise → configurer les magasins → inviter son équipe → ajouter les produits → gérer le stock → vendre → suivre les performances → analyser les résultats.
+Le tout depuis une seule plateforme, avec une interface différente et pertinente pour chaque rôle.
+51. Priorité de développement
+Je recommande cet ordre exact pour ton projet :
+Priorité	Module	Importance
+P0	Design system + structure	Critique
+P0	Authentification	Critique
+P0	Création premier Admin	Critique
+P0	Invitations utilisateurs	Critique
+P0	RBAC / permissions	Critique
+P0	Produits	Critique
+P0	Stock	Critique
+P0	Clients	Critique
+P0	Point de vente	Critique
+P0	Ventes	Critique
+P1	Dashboard Admin	Haute
+P1	Dashboard Manager	Haute
+P1	Dashboard Vendeur	Haute
+P1	Rapports	Haute
+P1	Objectifs	Haute
+P2	Fournisseurs avancés	Moyenne
+P2	Notifications avancées	Moyenne
+P2	Exports	Moyenne
+P3	Paiements externes	Évolution
+P3	PWA / Offline	Évolution
+
+
+Conclusion
+Ce PRD définit donc GestCom comme une application commerciale multi-tenant/multi-rôles, et non comme un simple dashboard statique. Les quatre maquettes fournies deviennent la référence de l'expérience visuelle, tandis que le PRD ajoute toute la logique nécessaire derrière ces interfaces : création du premier administrateur, invitations, activation des comptes, séparation Admin/Manager/Vendeur, permissions, ventes, stock, clients, magasins, objectifs, rapports et sécurité.
