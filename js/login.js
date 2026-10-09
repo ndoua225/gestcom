@@ -1,7 +1,7 @@
 Auth.enforceSetupState("login");
 (function () {
   var s = Auth.session();
-  if (s) { location.replace(Auth.homeFor(s.role)); return; }
+  if (s && !Auth.cloudEnabled()) { location.replace(Auth.homeFor(s.role)); return; }
 
   var flash = sessionStorage.getItem("gestcom_flash");
   if (flash) {

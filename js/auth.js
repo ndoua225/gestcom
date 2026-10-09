@@ -26,19 +26,26 @@
     var log = read(localStorage, K.audit, []);
     log.push({ action: action, userId: userId || null, at: new Date().toISOString() });
     write(localStorage, K.audit, log.slice(-500));
+    if (window.Cloud) Cloud.scheduleSync();
   }
 
   var Auth = {
     ROLES: ROLES, MAX_ATTEMPTS: MAX_ATTEMPTS, hash: hash, audit: audit,
     users: function () { return read(localStorage, K.users, []); },
-    saveUsers: function (u) { write(localStorage, K.users, u); },
+    saveUsers: function (u) { write(localStorage, K.users, u); if (window.Cloud) Cloud.scheduleSync(); },
     auditLog: function () { return read(localStorage, K.audit, []); },
     currentUser: function () {
       var s = Auth.session();
       return s ? (Auth.users().find(function (u) { return u.id === s.userId; }) || null) : null;
     },
     adminExists: function () {
+      if (window.Cloud && Cloud.enabled()) return true;
       return read(localStorage, K.users, []).some(function (u) { return u.role === "admin"; });
+    },
+    cloudEnabled: function () { return !!(window.Cloud && Cloud.enabled()); },
+    syncCloud: function () { return window.Cloud ? Cloud.syncNow() : Promise.resolve(); },
+    updateCloudPassword: function (password) {
+      return window.Cloud && Cloud.enabled() ? Cloud.updatePassword(password) : Promise.resolve();
     },
     company: function () { return read(localStorage, K.company, null); },
     homeFor: function (role) { return role + "-dashboard.html"; },
@@ -110,6 +117,48 @@
 
     login: async function (identifier, password, role, remember) {
       identifier = identifier.trim().toLowerCase();
+      if (window.Cloud && Cloud.enabled()) {
+        var localUser = Auth.users().find(function (u) { return u.username === identifier || u.email === identifier; });
+        var email = identifier.indexOf("@") >= 0 ? identifier : (localUser && localUser.email);
+        if (!email) throw new Error("Sur un nouvel appareil, connectez-vous avec l’adresse email du compte.");
+        var remoteUser = null;
+        try {
+          remoteUser = await Cloud.signIn(email, password, remember);
+        } catch (signInError) {
+          if (!localUser || !localUser.hash) throw new Error("Identifiants, mot de passe ou rôle incorrect.");
+          var localHash = await hash(password, localUser.salt);
+          if (localHash.hash !== localUser.hash) throw new Error("Identifiants, mot de passe ou rôle incorrect.");
+          try {
+            var registered = await Cloud.signUp(email, password, {
+              username: localUser.username, nom: localUser.nom, prenom: localUser.prenom
+            }, remember);
+            if (!registered || !registered.access_token) {
+              throw new Error("Un email de confirmation Supabase a été envoyé. Confirmez-le, puis reconnectez-vous sur cet appareil pour synchroniser GestCom.");
+            }
+            remoteUser = registered.user;
+          } catch (signUpError) {
+            if (signUpError.message.indexOf("email de confirmation") >= 0) throw signUpError;
+            throw new Error("Connexion Supabase impossible. Vérifiez l’email et le mot de passe ou confirmez l’adresse email du compte.");
+          }
+        }
+        if (!remoteUser) remoteUser = await Cloud.user();
+        if (!remoteUser) throw new Error("La session Supabase n’a pas pu être ouverte.");
+        var payload = await Cloud.load(remoteUser.id);
+        if (payload) Cloud.apply(payload);
+        else if (localUser) await Cloud.syncNow();
+        else throw new Error("Aucune sauvegarde GestCom n’est associée à ce compte. Ouvrez d’abord GestCom sur le téléphone où le compte a été créé et connectez-vous une fois avec votre email.");
+
+        var user = Auth.users().find(function (u) { return u.email === email; });
+        if (!user || user.role !== role) throw new Error("Identifiants, mot de passe ou rôle incorrect.");
+        if (user.statut !== "actif") throw new Error("Ce compte n'est pas actif. Contactez l'administrateur.");
+        var cloudSession = { userId: user.id, role: user.role, name: user.prenom + " " + user.nom,
+          expires: Date.now() + SESSION_MS };
+        sessionStorage.removeItem(K.session); localStorage.removeItem(K.session);
+        write(remember ? localStorage : sessionStorage, K.session, cloudSession);
+        audit("login", user.id);
+        Cloud.scheduleSync();
+        return cloudSession;
+      }
       var attempts = read(localStorage, K.attempts, {});
       var a = attempts[identifier];
       if (a && a.n >= MAX_ATTEMPTS && Date.now() - a.t < LOCK_MS)
@@ -146,6 +195,7 @@
       var s = read(sessionStorage, K.session, null) || read(localStorage, K.session, null);
       if (s && !silent) audit("logout", s.userId);
       sessionStorage.removeItem(K.session); localStorage.removeItem(K.session);
+      if (window.Cloud && Cloud.enabled()) Cloud.signOut();
     },
 
     /* Protège une page par rôle (contrôle d'accès côté client). */

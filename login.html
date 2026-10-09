@@ -37,8 +37,8 @@
       <div id="flash" class="alert success" role="status" hidden></div>
       <div id="error" class="alert error" role="alert" hidden></div>
       <form id="login-form" novalidate>
-        <div class="field"><label for="username">Nom d'utilisateur</label>
-          <input id="username" name="username" placeholder="Entrez votre nom d'utilisateur" autocomplete="username" required autofocus></div>
+        <div class="field"><label for="username">Adresse email</label>
+          <input id="username" name="username" placeholder="Votre email du compte GestCom" autocomplete="username" required autofocus></div>
         <div class="field"><label for="password">Mot de passe</label>
           <div class="input"><input id="password" name="password" type="password" placeholder="Entrez votre mot de passe" autocomplete="current-password" required>
           <button type="button" class="toggle" data-toggle="password" aria-label="Afficher le mot de passe">👁</button></div></div>
@@ -55,6 +55,7 @@
         </div>
         <button class="btn" type="submit">→ Se connecter</button>
       </form>
+      <p class="foot">Sur un nouvel appareil, utilisez l’adresse email et le mot de passe du compte.</p>
       <div class="trust">
         <div><b>🛡️ Connexion sécurisée</b>Vos données sont protégées</div>
         <div><b>🔒 Accès par rôle</b>Interface adaptée à votre profil</div>
@@ -64,7 +65,7 @@
     </div>
   </section>
 </main>
-<script src="js/auth.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/cloud.js"></script><script src="js/auth.js"></script>
 <script src="js/login.js"></script>
 </body>
 </html>

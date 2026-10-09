@@ -15,8 +15,10 @@ Ouvrez `index.html` dans un navigateur moderne. Au premier lancement, GestCom de
 - Suivi des alertes et mouvements de stock, objectifs, rapports, export CSV, recherche et profil.
 - Récupération du mot de passe avec lien de réinitialisation.
 
-## Données et limites
+## Synchronisation Supabase
 
-Cette version est un prototype front-end : les données sont conservées dans le stockage local du navigateur. Elles ne sont pas synchronisées entre appareils ou comptes navigateur. Les invitations et liens de réinitialisation sont générés à l’écran pour être partagés manuellement ; aucun email n’est envoyé. Les rôles et permissions sont appliqués dans l’interface, sans serveur d’API.
+Le projet utilise Supabase Auth et la table privée `gestcom_workspace` pour synchroniser la sauvegarde GestCom entre appareils. La configuration publique du projet est dans `js/supabase-config.js` ; seules l’URL et la clé publishable y figurent. Ne jamais y placer une clé `sb_secret_` ou `service_role`.
 
-Pour un déploiement de production, il faudra connecter une API et une base de données, déplacer l’authentification et les contrôles d’accès côté serveur, puis intégrer l’envoi de courriels et les paiements externes.
+Pour initialiser la base, exécutez une seule fois `supabase/schema.sql` dans **Supabase → SQL Editor**. Dans **Authentication → URL Configuration**, ajoutez `https://ndoua225.github.io/gestcom/**` à la liste des URL de redirection autorisées. Ouvrez ensuite GestCom sur l’appareil où le compte admin existe déjà et connectez-vous avec son adresse email et son mot de passe. Cette première connexion crée le compte Auth Supabase et transfère la sauvegarde locale. Si la confirmation email est activée dans Supabase, confirmez l’email puis reconnectez-vous sur cet appareil pour terminer le transfert. Sur un autre appareil, connectez-vous avec la même adresse email et le même mot de passe ; le compte ne repassera pas par l’enregistrement admin.
+
+Les tables appliquent une politique RLS : chaque compte Supabase ne peut lire ou modifier que sa propre sauvegarde. La sauvegarde est transmise après les modifications et n’inclut ni le jeton de session ni le mot de passe en clair. Cette première intégration synchronise le compte administrateur et sa sauvegarde. Les comptes d’équipe, invitations et la récupération de mot de passe restent à migrer ; les rôles et permissions GestCom sont encore contrôlés par le prototype front-end. Une application multi-utilisateurs de production doit déplacer ces contrôles côté serveur.

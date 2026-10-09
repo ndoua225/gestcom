@@ -11,11 +11,20 @@
     if (s) Object.keys(s).forEach(function (k) { d[k] = s[k]; });
   } catch (e) { /* données corrompues : on repart de zéro */ }
 
-  function save() { localStorage.setItem(KEY, JSON.stringify(d)); }
+  function save() {
+    localStorage.setItem(KEY, JSON.stringify(d));
+    if (window.Cloud) Cloud.scheduleSync();
+  }
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
   window.DB = {
     uid: uid, save: save,
+    export: function () { return JSON.parse(JSON.stringify(d)); },
+    reload: function () {
+      d = blank();
+      try { var s = JSON.parse(localStorage.getItem(KEY)); if (s) Object.keys(s).forEach(function (k) { d[k] = s[k]; }); }
+      catch (_) { /* données distantes illisibles : conserver un magasin vide */ }
+    },
     all: function (n) { return d[n]; },
     find: function (n, id) { return d[n].find(function (x) { return x.id === id; }); },
     add: function (n, o) {
