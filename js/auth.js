@@ -138,7 +138,10 @@
             remoteUser = registered.user;
           } catch (signUpError) {
             if (signUpError.message.indexOf("email de confirmation") >= 0) throw signUpError;
-            throw new Error("Connexion Supabase impossible. Vérifiez l’email et le mot de passe ou confirmez l’adresse email du compte.");
+            var detail = signUpError && signUpError.message;
+            throw new Error(detail
+              ? "Migration Supabase refusée : " + detail
+              : "Migration Supabase impossible. Vérifiez votre connexion Internet et réessayez.");
           }
         }
         if (!remoteUser) remoteUser = await Cloud.user();
